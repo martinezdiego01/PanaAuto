@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - PanaAuto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Asegura que el fondo cubra toda la pantalla sin margen extra */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e0f7fa, #cfd8dc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            overflow-x: hidden; /* Oculta el scroll horizontal si se genera */
+        }
+
+        /* Sombra en la barra de navegación */
+        .navbar {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Título */
+        h1 {
+            font-weight: bold;
+            font-size: 2.8rem;
+            color: #333;
+        }
+
+        /* Estilo de tarjetas */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            background: rgba(255, 255, 255, 0.8); /* Fondo ligeramente transparente */
+            backdrop-filter: blur(10px); /* Desenfoque en el fondo */
+            border-radius: 12px;
+        }
+
+        .card:hover {
+            transform: scale(1.06);  /* Ampliación ligera en hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra más suave */
+        }
+
+        /* Iconos */
+        .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .border-primary .icon {
+            color: #007bff;
+        }
+
+        .border-success .icon {
+            color: #28a745;
+        }
+
+        .border-info .icon {
+            color: #17a2b8;
+        }
+
+        /* Colores de fondo en hover */
+        .border-primary:hover {
+            background-color: #e3f2fd;
+        }
+
+        .border-success:hover {
+            background-color: #e6f7eb;
+        }
+
+        .border-info:hover {
+            background-color: #e0f4f7;
+        }
+
+        /* Espacio para mensajes flash */
+        .flash-message {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegación con botón de Cerrar sesión -->
+    <nav class="navbar navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">PanaAuto</a>
+            <div class="d-flex">
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-danger">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mensajes Flash -->
+    <div class="container flash-message">
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Contenedor centralizado para los botones principales -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Bienvenido a PanaAuto</h1>
+        <p class="text-center lead text-secondary">Gestiona y consulta el inventario de autos de manera fácil y rápida.</p>
+        
+        <!-- Tarjetas con iconos y estilo mejorado -->
+        <div class="row justify-content-center mt-5">
+            <!-- Tarjeta Ver Autos -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center border-primary">
+                    <div class="card-body">
+                        <div class="icon mb-3">
+                            <i class="bi bi-car-front-fill"></i>
+                        </div>
+                        <h5 class="card-title">Ver Autos Disponibles</h5>
+                        <p class="card-text text-muted">Consulta la lista completa de autos en el inventario.</p>
+                        <a href="{{ url_for('ver_autos') }}" class="btn btn-outline-primary">Ver Autos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Añadir Auto -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center border-success">
+                    <div class="card-body">
+                        <div class="icon mb-3">
+                            <i class="bi bi-plus-circle-fill"></i>
+                        </div>
+                        <h5 class="card-title">Añadir Nuevo Auto</h5>
+                        <p class="card-text text-muted">Agrega un nuevo auto al inventario.</p>
+                        <a href="{{ url_for('agregar_auto') }}" class="btn btn-outline-success">Añadir Auto</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Filtrar Autos -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm text-center border-info">
+                    <div class="card-body">
+                        <div class="icon mb-3">
+                            <i class="bi bi-filter-circle-fill"></i>
+                        </div>
+                        <h5 class="card-title">Filtrar Autos</h5>
+                        <p class="card-text text-muted">Encuentra autos específicos usando filtros.</p>
+                        <a href="{{ url_for('filtrar_auto') }}" class="btn btn-outline-info">Filtrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
